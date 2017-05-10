@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 services:
   nextcloud:
     image: wonderfall/nextcloud
@@ -30,12 +30,9 @@ services:
     ports:
        - "8888:8888"
     depends_on:
-      nextcloud-db:
-	condition: service_healthy
-      redis:
-	condition: service_started
-      solr:
-        condition: service_started
+      - nextcloud-db
+      - redis
+      - solr
   
   # If using MySQL
   nextcloud-db:
@@ -47,8 +44,6 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=supersecretpassword
-    healthcheck:
-      test: "exit 0"
   
   # If using Nextant
   solr:
