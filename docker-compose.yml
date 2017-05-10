@@ -32,8 +32,10 @@ services:
     depends_on:
       nextcloud-db:
 	condition: service_healthy
-      - redis
-      - solr
+      redis:
+	condition: service_started
+      solr:
+        condition: service_started
   
   # If using MySQL
   nextcloud-db:
